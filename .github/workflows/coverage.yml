@@ -26,9 +26,14 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run tests and coverage
+      - name: Run tests and coverage for Root app
         run: |
-          coverage run --omit='*/migrations/*,*/tests/*,*/admin.py,*/apps.py,*/models.py,*/views.py,*/asgi.py,*/wsgi.py,*/settings.py' manage.py test ewallet onboarding
+          coverage run --omit='*/migrations/*,*/tests/*,*/admin.py,*/apps.py,*/models.py,*/views.py,*/asgi.py,*/wsgi.py,*/settings.py' manage.py test ewallet 
+          coverage report --fail-under=80  # Adjust the desired coverage threshold
+
+      - name: Run tests and coverage for onboarding app
+        run: |
+          coverage run --omit='*/migrations/*,*/tests/*,*/admin.py,*/apps.py,*/models.py,*/views.py,*/asgi.py,*/wsgi.py,*/settings.py' --append manage.py test onboarding
           coverage report --fail-under=80  # Adjust the desired coverage threshold
 
       - name: Upload coverage report
