@@ -1,0 +1,49 @@
+/* Reset default margin and padding */
+body,
+h1,
+h2,
+h3,
+p,
+ul,
+li {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+.navbar {
+  background-color: #20365f;
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: #ffffff;
+  transition: color 0.3s;
+}
+
+.nav-links li a:hover {
+  color: #ffac33;
+}
+
+.content {
+  padding: 20px;
+}

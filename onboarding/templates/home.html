@@ -1,0 +1,35 @@
+<!-- onboarding/templates/landing_page.html -->
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Onboarding Landing Page</title>
+    <link rel="stylesheet" href="{% static 'home/home.css' %}" />
+  </head>
+  <body>
+    {% block content %} {% include 'snippets/navbar/navbar.html' %}
+    <!-- Add other landing page content here -->
+    {% endblock %}
+    <main class="content">
+      <section class="hero">
+        <h1>Welcome to Ewallet App</h1>
+        <p>Manage your finances with ease!</p>
+        <a href="#" class="cta-button">Get Started</a>
+      </section>
+      <section class="features">
+        <div class="feature">
+          <h2>Deposit & Withdraw</h2>
+          <p>Easily deposit and withdraw money from your accounts.</p>
+        </div>
+        <div class="feature">
+          <h2>Transfer Funds</h2>
+          <p>Transfer money securely between your accounts.</p>
+        </div>
+        <div class="feature">
+          <h2>Request Credit</h2>
+          <p>Apply for credit when you need it.</p>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
