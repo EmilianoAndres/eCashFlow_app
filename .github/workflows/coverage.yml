@@ -28,7 +28,7 @@ jobs:
 
       - name: Run tests and coverage
         run: |
-          coverage run manage.py test --omit='*/migrations/*,*/tests/*,*/admin.py,*/apps.py,*/models.py,*/views.py'
+          coverage run --omit='*/migrations/*,*/tests/*,*/admin.py,*/apps.py,*/models.py,*/views.py' manage.py test
           coverage report --fail-under=80  # Adjust the desired coverage threshold
 
       - name: Upload coverage report
