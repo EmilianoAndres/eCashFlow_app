@@ -1,5 +1,5 @@
 [run]
-source = your_app
+source = ewallet
 
 [report]
 fail_under = 80
