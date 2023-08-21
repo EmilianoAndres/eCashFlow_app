@@ -1,0 +1,7 @@
+[run]
+source = your_app
+
+[report]
+fail_under = 80
+omit =
+    */migrations/*
