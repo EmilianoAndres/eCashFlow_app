@@ -18,7 +18,7 @@ jobs:
       mysql:
         image: mysql:5.7
         env:
-          MYSQL_ROOT_PASSWORD: pzergling
+          MYSQL_ROOT_PASSWORD: testpassword2023
           MYSQL_DATABASE: mysql
         ports: ["8888:3306"]
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
@@ -35,14 +35,14 @@ jobs:
           pip install -r requirements.txt
       - name: Create DB
         run: |
-          mysql -h 127.0.0.1 --port 8888 -u root -ppzergling -e 'CREATE DATABASE IF NOT EXISTS test;'
+          mysql -h 127.0.0.1 --port 8888 -u root -ptestpassword2023 -e 'CREATE DATABASE IF NOT EXISTS test;'
       - name: Run Migrations
         run: python manage.py migrate
         env:
           DBENGINE: mysql.connector.django
           DBNAME: test
           DBUSER: root
-          DBPASSWORD: pzergling
+          DBPASSWORD: testpassword2023
           DBHOST: 127.0.0.1
           DBPORT: 8888
       - name: Run Tests
@@ -52,6 +52,6 @@ jobs:
           DBENGINE: mysql.connector.django
           DBNAME: test
           DBUSER: root
-          DBPASSWORD: pzergling
+          DBPASSWORD: testpassword2023
           DBHOST: 127.0.0.1
           DBPORT: 8888

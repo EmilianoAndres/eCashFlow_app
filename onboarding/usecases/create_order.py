@@ -6,12 +6,11 @@ from rest_framework.exceptions import APIException
 
 
 class CreateOrderUseCase:
-    def __init__(self):
-        self.OrderRepository = OrderRepository()
-        self.CustomerRepository = CustomerRepository()
+    def __init__(self, orderRepository: OrderRepository, customerRepository: CustomerRepository):
+        self.OrderRepository = orderRepository
+        self.CustomerRepository = customerRepository
 
     def execute(self, customer_id, total_amount):
-        print(customer_id)
         # Fetch the customer using an external service or repository
         customer = self.CustomerRepository.get_customer_by_id(customer_id)
         if customer == None:
@@ -22,6 +21,6 @@ class CreateOrderUseCase:
                       total_amount=total_amount)
 
         # Save the order using the repository
-        self.OrderRepository.save(order)
+        order = self.OrderRepository.save(order)
 
         return order

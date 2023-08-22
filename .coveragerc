@@ -1,7 +1,8 @@
 [run]
 source = ewallet
+include = */ewallet/*, */onboarding/*
+omit = *migrations*, *tests*
+plugins = django_coverage_plugin
 
 [report]
 fail_under = 80
-omit =
-    */migrations/*

@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'user/home.css' %}" />
+    <title>Logged-in User's Homepage</title>
+  </head>
+  <body>
+    <div class="header">
+      <div class="logo">Mercado Pago</div>
+      <div class="user-info">
+        <div class="user-name">Welcome, John Doe</div>
+        <div class="user-balance">$5,000.00</div>
+      </div>
+    </div>
+    <div class="content">
+      <div class="transactions">
+        <h2>Recent Transactions</h2>
+        <div class="transaction">
+          <div class="transaction-info">
+            <div class="transaction-date">August 20, 2023</div>
+            <div class="transaction-description">
+              Payment received from ABC Electronics
+            </div>
+          </div>
+          <div class="transaction-amount">+$500.00</div>
+        </div>
+        <div class="transaction">
+          <div class="transaction-info">
+            <div class="transaction-date">August 18, 2023</div>
+            <div class="transaction-description">Payment to XYZ Services</div>
+          </div>
+          <div class="transaction-amount">-$100.00</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
