@@ -49,6 +49,7 @@ jobs:
         run: |
           pytest
         env:
+          ACTIONS_STEP_DEBUG: true
           DBENGINE: mysql.connector.django
           DBNAME: test
           DBUSER: root
@@ -60,7 +61,7 @@ jobs:
         run: |
           totalcover=$(coverage report -m | grep "TOTAL" | awk '$1 == "TOTAL" {print $NF+0}')
           echo "$totalcover"
-          if [[ ${totalcover} > 50 ]];
+          if [[ ${totalcover} -gt 50 ]];
           then
             echo "COVEREXISTS=0" >> $GITHUB_OUTPUT
           else
@@ -71,6 +72,7 @@ jobs:
       - name: Update Pull Request
         uses: actions/github-script@0.9.0
         env:
+          ACTIONS_STEP_DEBUG: true
           TESTSTATUS: "${{ steps.python_test.outputs.COVEREXISTS }}"
           TESTTOTALCOVER: "${{ steps.python_test.outputs.COVERTOTAL }}"
         with:
@@ -91,6 +93,7 @@ jobs:
 
       - name: Last Step
         env:
+          ACTIONS_STEP_DEBUG: true
           TESTSTATUS: "${{ steps.python_test.outputs.COVEREXISTS }}"
         run: |
           if [[ $TESTSTATUS != 0 ]]; then
