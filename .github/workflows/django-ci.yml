@@ -47,7 +47,7 @@ jobs:
           DBPORT: 8888
       - name: Run Tests
         run: |
-          python manage.py test
+          pytest
         env:
           DBENGINE: mysql.connector.django
           DBNAME: test
