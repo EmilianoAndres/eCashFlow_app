@@ -12,6 +12,13 @@ jobs:
   test-coverage:
     runs-on: ubuntu-latest
 
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: test_db
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
