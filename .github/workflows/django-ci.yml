@@ -55,3 +55,22 @@ jobs:
           DBPASSWORD: testpassword2023
           DBHOST: 127.0.0.1
           DBPORT: 8888
+      - name: Run Coverage Report
+        id: python_test
+        run: |
+          totalcover=$(coverage report -m | grep "TOTAL" | awk '$1 == "TOTAL" {print $NF+0}')
+          if [[ ${totalcover} > 75% ]];
+          then
+            echo "COVEREXISTS=0" >> $GITHUB_OUTPUT
+          else
+            echo "COVEREXISTS=1" >> $GITHUB_OUTPUT
+          fi
+          echo "COVERTOTAL=${totalcover}" >> $GITHUB_OUTPUT
+
+      - name: Last Step
+        env:
+          TESTSTATUS: "${{ steps.python_test.outputs.COVEREXISTS }}"
+        run: |
+          if [[ $TESTSTATUS != 0 ]]; then
+            exit 1
+          fi
