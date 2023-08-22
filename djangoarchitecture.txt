@@ -1,0 +1,4 @@
+views son los controllers
+models dominio
+
+falta un archivo service, y un infrastructure que le pegue a la base

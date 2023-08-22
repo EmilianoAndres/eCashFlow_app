@@ -14,7 +14,13 @@
       <section class="hero">
         <h1>Welcome to Ewallet App</h1>
         <p>Manage your finances with ease!</p>
-        <a href="#" class="cta-button">Get Started</a>
+        {% comment %} here goes the name of the VIEW, not the hmtl {% endcomment %}
+        <form method="post" action="{% url 'CreateOrderView' %}">
+          {% csrf_token %}
+          <input name="customer_id" value="{{ customer.id }}" />
+          <input name="total_amount" value="{{ total.amount}}" />
+          <button type="submit">Create Order</button>
+        </form>
       </section>
       <section class="features">
         <div class="feature">
