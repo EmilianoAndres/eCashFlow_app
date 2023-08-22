@@ -25,6 +25,11 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+          export DJANGO_SETTINGS_MODULE=myproject.settings
+          export DATABASE_URL=127.0.0.1:3306
+
+      - name: Run database migrations
+        run: python manage.py migrate
 
       - name: Run tests and coverage for Root app
         run: |
