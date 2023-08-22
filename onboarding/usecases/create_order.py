@@ -20,3 +20,5 @@ class CreateOrderUseCase:
 
         # Save the order using the repository
         self.OrderRepository.save(order)
+
+        return order
