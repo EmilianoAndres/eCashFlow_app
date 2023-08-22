@@ -91,11 +91,11 @@ DATABASES = {
         'PORT': '3306'
     },
     'test_db': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'mysql.connector.django',
         'NAME': 'test_db',
         'USER': 'root',
         'PASSWORD': 'password',
-        'HOST': 'mysql',
+        'HOST': '127.0.0.1',
         'PORT': '3306'
     },
 }
