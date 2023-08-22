@@ -67,6 +67,27 @@ jobs:
           fi
           echo "COVERTOTAL=${totalcover}" >> $GITHUB_OUTPUT
 
+      - name: Update Pull Request
+        uses: actions/github-script@0.9.0
+        env:
+          TESTSTATUS: "${{ steps.python_test.outputs.COVEREXISTS }}"
+          TESTTOTALCOVER: "${{ steps.python_test.outputs.COVERTOTAL }}"
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            var output = '';
+            if (process.env.TESTSTATUS == 0) {
+              output = `:heavy_check_mark: TEST COVERAGE PASSED - Coverage of ${process.env.TESTTOTALCOVER}`;
+            } else {
+              output = `❌ TEST COVERAGE FAILED - Coverage of ${process.env.TESTTOTALCOVER}`;
+            }
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: output
+            })
+
       - name: Last Step
         env:
           TESTSTATUS: "${{ steps.python_test.outputs.COVEREXISTS }}"
