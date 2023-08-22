@@ -59,7 +59,7 @@ jobs:
       - name: Run Coverage Report
         id: python_test
         run: |
-          testvariable=$("hello")
+          testvariable="hello"
           echo "$testvariable"
           totalcover=$(coverage report -m | awk '/TOTAL/ {print substr($NF, 1, length($NF)-1)}')
           echo "$totalcover"
