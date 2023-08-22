@@ -59,6 +59,14 @@ jobs:
       - name: Pytest coverage Onboarding
         run: |
           pytest --cov=onboarding
+        env:
+          ACTIONS_STEP_DEBUG: true
+          DBENGINE: mysql.connector.django
+          DBNAME: test
+          DBUSER: root
+          DBPASSWORD: testpassword2023
+          DBHOST: 127.0.0.1
+          DBPORT: 8888
       - name: Run Coverage Report
         id: python_test
         run: |
