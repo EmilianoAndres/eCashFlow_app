@@ -32,8 +32,6 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          export DJANGO_SETTINGS_MODULE=myproject.settings
-          export DATABASE_URL=mysql
 
       - name: Run database migrations
         run: python manage.py migrate --database=test_db
