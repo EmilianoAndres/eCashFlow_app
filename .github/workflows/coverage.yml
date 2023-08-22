@@ -36,16 +36,16 @@ jobs:
           export DATABASE_URL=mysql
 
       - name: Run database migrations
-        run: python manage.py migrate --database=test_db
+        run: python manage.py migrate --database=test_db --host=127.0.0.1
 
       - name: Run tests and coverage for Root app
         run: |
-          coverage run --omit='*/migrations/*,*/tests/*,*/admin.py,*/apps.py,*/models.py,*/views.py,*/asgi.py,*/wsgi.py,*/settings.py' manage.py test ewallet --database=test_db
+          coverage run --omit='*/migrations/*,*/tests/*,*/admin.py,*/apps.py,*/models.py,*/views.py,*/asgi.py,*/wsgi.py,*/settings.py' manage.py test ewallet --database=test_db --host=127.0.0.1
           coverage report --fail-under=80  # Adjust the desired coverage threshold
 
       - name: Run tests and coverage for onboarding app
         run: |
-          coverage run --omit='*/migrations/*,*/tests/*,*/admin.py,*/apps.py,*/models.py,*/views.py,*/asgi.py,*/wsgi.py,*/settings.py' --append manage.py test onboarding --database=test_db
+          coverage run --omit='*/migrations/*,*/tests/*,*/admin.py,*/apps.py,*/models.py,*/views.py,*/asgi.py,*/wsgi.py,*/settings.py' --append manage.py test onboarding --database=test_db --host=127.0.0.1
           coverage report --fail-under=80  # Adjust the desired coverage threshold
 
       - name: Upload coverage report
