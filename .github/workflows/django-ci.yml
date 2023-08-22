@@ -59,7 +59,8 @@ jobs:
         id: python_test
         run: |
           totalcover=$(coverage report -m | grep "TOTAL" | awk '$1 == "TOTAL" {print $NF+0}')
-          if [[ ${totalcover} > 50% ]];
+          echo "$totalcover"
+          if [[ ${totalcover} > 50 ]];
           then
             echo "COVEREXISTS=0" >> $GITHUB_OUTPUT
           else
