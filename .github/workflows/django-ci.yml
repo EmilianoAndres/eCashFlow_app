@@ -59,12 +59,15 @@ jobs:
       - name: Run Coverage Report
         id: python_test
         run: |
+          testvariable=$(hello)
+          echo "$testvariable"
           totalcover=$(coverage report -m | awk '/TOTAL/ {print substr($NF, 1, length($NF)-1)}')
-          if [[ ${totalcover} > 50% ]];
+          echo "$totalcover"
+          if [[ ${totalcover} > 50 ]];
           then
             echo "COVEREXISTS=0" >> $GITHUB_OUTPUT
           else
-            echo "COVEREXISTS=1" >> $GITHUB_OUTPUT
+            echo "COVEREXISTS=1"  
           fi
           echo "COVERTOTAL=${totalcover}" >> $GITHUB_OUTPUT
 
