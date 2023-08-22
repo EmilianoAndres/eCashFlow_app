@@ -2,6 +2,7 @@ from onboarding.domain.entities import Customer
 from onboarding.domain.entities import Order
 from onboarding.infrastructure.repositories import OrderRepository
 from onboarding.infrastructure.repositories import CustomerRepository
+from rest_framework.exceptions import APIException
 
 
 class CreateOrderUseCase:
@@ -13,6 +14,8 @@ class CreateOrderUseCase:
         print(customer_id)
         # Fetch the customer using an external service or repository
         customer = self.CustomerRepository.get_customer_by_id(customer_id)
+        if customer == None:
+            return APIException(detail="user not found", code=404)
 
         # Create the order
         order = Order(order_id=None, customer=customer,

@@ -7,6 +7,7 @@ from rest_framework.views import APIView
 from rest_framework.renderers import TemplateHTMLRenderer
 from django.shortcuts import render
 from ...handlers import *
+from rest_framework.exceptions import APIException
 
 # Create your views here.
 
@@ -22,7 +23,10 @@ class CreateOrderView(APIView):
     def post(self, request):
         data = request.data
         use_case = CreateOrderUseCase()
-        use_case.execute(data['customer_id'], data['total_amount'])
+        result = use_case.execute(data['customer_id'], data['total_amount'])
+
+        if type(result) == APIException:
+            return Response(status=result.status_code, template_name='errorpage.html')
 
         return Response(status=status.HTTP_201_CREATED, template_name='secondpage.html')
 

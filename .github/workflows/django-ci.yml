@@ -18,7 +18,9 @@ jobs:
       mysql:
         image: mysql:5.7
         env:
-          MYSQL_ROOT_PASSWORD: zergling
+          MYSQL_USER: test_user
+          MYSQL_PASSWORD: password
+          MYSQL_ROOT_PASSWORD: pzergling
           MYSQL_DATABASE: mysql
         ports: ["3306:3306"]
 
@@ -32,13 +34,16 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+      - name: Grant privileges to MySQL test_user
+        run: |
+          mysql -u root -h 127.0.0.1 -pzergling -e "GRANT ALL PRIVILEGES ON mysql.* TO 'test_user'@'%' IDENTIFIED BY 'password';"
       - name: Run Migrations
         run: python manage.py migrate
         env:
           DBENGINE: mysql.connector.django
           DBNAME: mysql
-          DBUSER: root
-          DBPASSWORD: zergling
+          DBUSER: test_user
+          DBPASSWORD: password
           DBHOST: 127.0.0.1
           DBPORT: $
       - name: Run Tests
@@ -47,7 +52,7 @@ jobs:
         env:
           DBENGINE: mysql.connector.django
           DBNAME: mysql
-          DBUSER: root
-          DBPASSWORD: zergling
+          DBUSER: test_user
+          DBPASSWORD: password
           DBHOST: 127.0.0.1
           DBPORT: $

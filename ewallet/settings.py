@@ -12,6 +12,11 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+import os
+
+# Load DOTENV .env file for environmental variables
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -83,12 +88,12 @@ WSGI_APPLICATION = 'ewallet.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'mysql.connector.django',
-        'NAME': 'ewallet',
-        'USER': 'root',
-        'PASSWORD': 'ewallet@iresm2023',
-        'HOST': '127.0.0.1',
-        'PORT': '3306'
+        'ENGINE': os.environ.get('DBENGINE', ''),
+        'NAME': os.environ.get('DBNAME', ''),
+        'USER': os.environ.get('DBUSER', ''),
+        'PASSWORD': os.environ.get('DBPASSWORD', ''),
+        'HOST': os.environ.get('DBHOST', ''),
+        'PORT': os.environ.get('DBPORT', ''),
     }
 }
 
