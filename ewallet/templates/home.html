@@ -14,7 +14,8 @@
       <section class="hero">
         <h1>Welcome to Ewallet App</h1>
         <p>Manage your finances with ease!</p>
-        {% comment %} here goes the name of the VIEW, not the hmtl {% endcomment %}
+        {% comment %} here goes the name of the VIEW, not the hmtl {% endcomment
+        %}
         <form method="post" action="{% url 'CreateOrderView' %}">
           {% csrf_token %}
           <input name="customer_id" value="{{ customer.id }}" />
@@ -29,7 +30,7 @@
         </div>
         <div class="feature">
           <h2>Transfer Funds</h2>
-          <p>Transfer money securely between your accounts.</p>
+          <p>Transfer money securely between your accounts</p>
         </div>
         <div class="feature">
           <h2>Request Credit</h2>
