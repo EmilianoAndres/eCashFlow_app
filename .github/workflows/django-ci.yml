@@ -56,9 +56,9 @@ jobs:
           DBPASSWORD: testpassword2023
           DBHOST: 127.0.0.1
           DBPORT: 8888
-      - name: Coverage
+      - name: Pytest coverage Onboarding
         run: |
-          coverage report -m
+          pytest --cov=onboarding
       - name: Run Coverage Report
         id: python_test
         run: |
