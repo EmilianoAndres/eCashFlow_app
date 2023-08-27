@@ -1,0 +1,5 @@
+[run]
+source = ewallet
+include = */ewallet/*, */onboarding/*
+omit = *migrations*, *tests*
+plugins = django_coverage_plugin

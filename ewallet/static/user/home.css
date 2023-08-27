@@ -1,0 +1,74 @@
+/* Reset default margin and padding */
+body, h1, h2, h3, p, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+.header {
+    background-color: #20365F;
+    color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.user-info {
+    text-align: right;
+}
+
+.user-name {
+    font-size: 18px;
+}
+
+.user-balance {
+    font-size: 16px;
+    color: #FFAC33;
+}
+
+.content {
+    padding: 20px;
+}
+
+.transactions {
+    background-color: #F2F2F2;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.transaction {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #E0E0E0;
+    border-radius: 5px;
+}
+
+.transaction-info {
+    flex: 1;
+}
+
+.transaction-date {
+    font-size: 14px;
+    color: #777777;
+}
+
+.transaction-description {
+    font-size: 16px;
+}
+
+.transaction-amount {
+    font-size: 18px;
+    color: #009688;
+}

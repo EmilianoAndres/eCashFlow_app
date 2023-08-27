@@ -1,0 +1,98 @@
+name: Django CI
+
+on:
+  push:
+    branches: [develop]
+  pull_request:
+    branches: [develop]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: [3.7]
+
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: testpassword2023
+          MYSQL_DATABASE: mysql
+        ports: ["8888:3306"]
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python $
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Create DB
+        run: |
+          mysql -h 127.0.0.1 --port 8888 -u root -ptestpassword2023 -e 'CREATE DATABASE IF NOT EXISTS test;'
+      - name: Run Migrations
+        run: python manage.py migrate
+        env:
+          DBENGINE: mysql.connector.django
+          DBNAME: test
+          DBUSER: root
+          DBPASSWORD: testpassword2023
+          DBHOST: 127.0.0.1
+          DBPORT: 8888
+
+      - name: Run Coverage Report - App Onboarding
+        id: python_test
+        run: |
+          totalcover=$(pytest --cov=onboarding | awk '/TOTAL/ {print substr($NF, 1, length($NF)-1)}')
+          if [[ ${totalcover} > 60 ]];
+          then
+            echo "COVEREXISTS=0" >> $GITHUB_OUTPUT
+          else
+            echo "COVEREXISTS=1" >> $GITHUB_OUTPUT
+          fi
+          echo "COVERTOTAL=${totalcover}" >> $GITHUB_OUTPUT
+        env:
+          ACTIONS_STEP_DEBUG: true
+          DBENGINE: mysql.connector.django
+          DBNAME: test
+          DBUSER: root
+          DBPASSWORD: testpassword2023
+          DBHOST: 127.0.0.1
+          DBPORT: 8888
+
+      - name: Update Pull Request
+        uses: actions/github-script@0.9.0
+        env:
+          ACTIONS_STEP_DEBUG: true
+          TESTSTATUS: "${{ steps.python_test.outputs.COVEREXISTS }}"
+          TESTTOTALCOVER: "${{ steps.python_test.outputs.COVERTOTAL }}"
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            var output = '';
+            if (process.env.TESTSTATUS == 0) {
+              output = `:heavy_check_mark: TEST COVERAGE PASSED - Coverage of ${process.env.TESTTOTALCOVER}`;
+            } else {
+              output = `❌ TEST COVERAGE FAILED - Coverage of ${process.env.TESTTOTALCOVER}`;
+            }
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: output
+            })
+
+      - name: Last Step
+        env:
+          ACTIONS_STEP_DEBUG: true
+          TESTSTATUS: "${{ steps.python_test.outputs.COVEREXISTS }}"
+        run: |
+          if [[ $TESTSTATUS != 0 ]]; then
+            exit 1
+          fi
