@@ -16,3 +16,5 @@ class OrderPersistence(models.Model):
     customer = models.ForeignKey(
         CustomerPersistence, on_delete=models.CASCADE)
     total_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    reference = models.CharField(max_length=40)
+    is_active = models.BooleanField(default=True)

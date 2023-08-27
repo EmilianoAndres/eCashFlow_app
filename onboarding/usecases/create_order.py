@@ -3,6 +3,7 @@ from onboarding.domain.entities import Order
 from onboarding.infrastructure.repositories import OrderRepository
 from onboarding.infrastructure.repositories import CustomerRepository
 from rest_framework.exceptions import APIException
+import uuid
 
 
 class CreateOrderUseCase:
@@ -17,8 +18,9 @@ class CreateOrderUseCase:
             return APIException(detail="user not found", code=404)
 
         # Create the order
+        ref = "OR-" + str(uuid.uuid4())
         order = Order(order_id=None, customer=customer,
-                      total_amount=total_amount)
+                      total_amount=total_amount, reference=ref)
 
         # Save the order using the repository
         order = self.OrderRepository.save(order)

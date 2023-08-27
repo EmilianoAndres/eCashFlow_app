@@ -8,6 +8,12 @@ from rest_framework.renderers import TemplateHTMLRenderer
 from django.shortcuts import render
 from ...handlers import *
 from rest_framework.exceptions import APIException
+from onboarding.infrastructure.repositories import OrderRepository
+from onboarding.infrastructure.repositories import CustomerRepository
+
+# Dependencies
+orderRepository = OrderRepository()
+customerRepository = CustomerRepository()
 
 # Create your views here.
 
@@ -22,7 +28,7 @@ class CreateOrderView(APIView):
 
     def post(self, request):
         data = request.data
-        use_case = CreateOrderUseCase()
+        use_case = CreateOrderUseCase(orderRepository, customerRepository)
         result = use_case.execute(data['customer_id'], data['total_amount'])
 
         if type(result) == APIException:

@@ -9,10 +9,11 @@ class Customer:
 
 
 class Order:
-    def __init__(self, order_id, customer: Customer, total_amount):
+    def __init__(self, order_id, customer: Customer, total_amount: float, reference: str):
         self.order_id = order_id
         self.customer = customer
         self.total_amount = total_amount
+        self.reference = reference
         self._order_lines = []
 
     def add_order_line(self, product, quantity, unit_price):

@@ -17,6 +17,7 @@ class OrderRepository:
         order_data = {
             'customer': order.customer,
             'total_amount': order.total_amount,
+            'reference': order.reference
             # Add other fields as needed
         }
         new_order = OrderPersistence(**order_data)
